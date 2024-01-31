@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shoe Store API Documentation</title>
+    <style>
+        h2,h3{
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Shoe Store API Documentation</h2>
+<h3>Domain: http://localhost:4000/api</h3>
+
+<table>
+    <tr>
+        <th></th>
+        <th>Endpoint</th>
+        <th>Method</th>
+        <th>Operation</th>
+        <th>Returns</th>
+        <th>Required Params</th>
+        <th>Optional Params</th>
+        <th>Request.Body</th>
+        <th>Headers</th>
+
+
+    </tr>
+    <tr>
+        <td rowspan="5">Shoe</td>
+        <td>/shoe</td>
+        <td>GET</td>
+        <td>Retrieve all shoes</td>
+        <td>List of shoes</td>
+        <td>None</td>
+        <td>txt</td>
+        <td>None</td>
+        <td>None</td> 
+    </tr>
+    <tr>
+        <td>/shoe/:id</td>
+        <td>GET</td>
+        <td>Retrieve a specific shoe</td>
+        <td>Single shoe</td>
+        <td>id (Shoe ID)</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+
+
+    </tr>
+    <tr>
+        <td>/shoe</td>
+        <td>POST</td>
+        <td>Create a new shoe</td>
+        <td>Created shoe (with _id)</td>
+        <td>None</td> 
+        <td>None</td>
+        <td>category, brand, price, model, providerNum,description. unnecessary: src,color</td> 
+        <td>x-access-token</td>
+
+    </tr>
+    <tr>
+        <td>/shoe/:id</td>
+        <td>PUT</td>
+        <td>Update a specific shoe</td>
+        <td>Updated shoe</td>
+        <td>id (Shoe ID)</td> 
+        <td>None</td>
+        <td> category, brand, price, model, providerNum,color, src, description</td></td> 
+        <td>x-access-token</td>
+       
+    </tr>
+    <tr>
+        <td>/shoe/:id</td>
+        <td>DELETE</td>
+        <td>Delete a specific shoe</td>
+        <td>Deleted shoe</td>
+        <td>id (Shoe ID)</td>
+        <td>None</td>
+        <td>None</td>
+        <td>x-access-token</td>
+
+    </tr>
+
+
+
+
+    <tr>
+        <td rowspan="3">User</td>
+        <td>/user</td>
+        <td>GET</td>
+        <td>Retrieve all users</td>
+        <td>List of users</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>x-access-token</td>
+
+        
+    </tr>
+    <tr>
+        <td>/user/login</td>
+        <td>POST</td>
+        <td>Sign in a specific user</td>
+        <td>Signed in user (with token)</td>
+        <td>None</td>
+        <td>None</td>
+        <td>email,password</td>
+        <td>None</td>
+
+    </tr>
+    <tr>
+        <td>/user</td>
+        <td>POST</td>
+        <td>Create a new user</td>
+        <td>Created user (with _id and token)</td>
+        <td>None</td>
+        <td>None</td>
+        <td>userName, password, email</td> 
+        <td>None</td>
+        
+
+
+
+        <tr>
+            <td rowspan="5">Order</td>
+            <td>/order</td>
+            <td>GET</td>
+            <td>Retrieve all orders by user</td>
+            <td>List of orders</td>
+            <td>None</td>
+            <td>None</td>
+            <td>None</td>
+            <td>x-access-token</td>
+
+        </tr>
+        <tr>
+         
+            <td>/order/all</td>
+            <td>GET</td>
+            <td>Retrieve all orders </td>
+            <td>List of orders</td>
+            <td>None</td>
+            <td>None</td>
+            <td>None</td>
+            <td>x-access-token</td>
+
+        </tr>
+        <tr>
+            <td>/order/:id</td>
+            <td>DELETE</td>
+            <td>Delete a specific order</td>
+            <td>Deleted order</td>
+            <td>id (order ID)</td>
+            <td>None</td>
+            <td>None</td>
+            <td>x-access-token</td>
+
+        </tr>
+        <tr>
+            <td>/order</td>
+            <td>POST</td>
+            <td>Create a new order</td>
+            <td>Created order (with _id)</td>
+            <td>None</td>
+            <td>None</td>
+            <td>orderDate, dueDate,address. unnecessary: products</td>
+            <td>x-access-token</td>
+        </tr>
+        <tr>
+            <td>/order/:id</td>
+            <td>PUT</td>
+            <td>Update a new order</td>
+            <td>Updated order</td>
+            <td>id (order ID)</td>
+            <td>None</td>
+            <td>isDone</td> 
+            <td>None</td>
+        </tr>
+    </tr>
+</table>
+
+</body>
+</html>
