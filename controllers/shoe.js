@@ -1,25 +1,56 @@
 import mongoose from "mongoose";
 import { ShoeModel, shoeValidatorForAdd, shoeValidatorForUpdate } from "../models/shoe.js"
-export const getAllShoes = async (req, res) => {
 
+// export const getAllShoes = async (req, res) => {
+//     let txt = req.query.txt || undefined;
+//     let page = req.query.page || 1;
+//     let perPage = req.query.perPage || 30;
+//     try {
+
+//         let allShoes = await ShoeModel.find({
+//             $or:
+//                 [{ brand: txt }, {category:txt  },{model:txt}]  }  )
+   
+//         .skip((page - 1) * perPage).limit(perPage);
+       
+//       return  res.json(allShoes)
+
+//     }
+//     catch (err) {
+//         res.status(400).json({ type: "invalid operation", message: "sorry cannot get all shoes" })
+//     }
+// }
+
+
+
+export const getAllShoes = async (req, res) => {
     let txt = req.query.txt || undefined;
     let page = req.query.page || 1;
     let perPage = req.query.perPage || 30;
 
-    
     try {
+        let query = {};
 
-        let allShoes = await ShoeModel.find({
-            $or:
-                [{ brand: txt },{color:txt}, {category:txt  },{description:txt},{model:txt}]  }  )
-   
-        .skip((page - 1) * perPage).limit(perPage);
-       
-        res.json(allShoes)
+        if (txt) {
+            query.$or = [
+                { brand: { $regex: new RegExp(txt, 'i') } },
+                { category: { $regex: new RegExp(txt, 'i') } },
+                { model: { $regex: new RegExp(txt, 'i') } }
+            ];
+        }
 
-    }
-    catch (err) {
-        res.status(400).json({ type: "invalid operation", message: "sorry cannot get all shoes" })
+        let allShoes = await ShoeModel.find(query)
+            .skip((page - 1) * perPage)
+            .limit(perPage);
+
+        if (allShoes.length === 0) {
+            return res.json({ message: "No shoes found." });
+        }
+
+        return res.json(allShoes);
+    } catch (err) {
+        console.error(err);
+        res.status(400).json({ type: "Invalid operation", message: "can't get all shoes" });
     }
 }
 
