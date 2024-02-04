@@ -2,11 +2,17 @@ import mongoose from "mongoose";
 import { OrderModel, orderValidatorForAdd } from "../models/order.js"
 import {orderValidatorForUpdate } from "../models/order.js"
 
-export const getAllOrdersByUser = async (req, res) => {
+export const getAllOrders= async (req, res) => {
+    let allOrders;
     try {
-
-        let allOrders = await OrderModel.find({userId:req.user._id} )
-        res.json(allOrders)
+      if(req.user.role=="ADMIN")
+      {
+        allOrders = await OrderModel.find({} )
+     
+       }
+       else
+         allOrders = await OrderModel.find({userId:req.user._id} )
+       return res.json(allOrders)
 
     }
     catch (err) {
@@ -14,17 +20,6 @@ export const getAllOrdersByUser = async (req, res) => {
     }
 }
 
-export const getAllOrders = async (req, res) => {
-    try {
-
-        let allOrders = await OrderModel.find({} )
-       return res.json(allOrders)
-
-    }
-    catch (err) {
-     return   res.status(400).json({ type: "invalid operation", message: "sorry cannot get  all Orders" })
-    }
-}
 
 
 
