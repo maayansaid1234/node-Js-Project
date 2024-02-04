@@ -2,7 +2,8 @@ import mongoose from "mongoose";
 import { OrderModel, orderValidatorForAdd } from "../models/order.js"
 import {orderValidatorForUpdate } from "../models/order.js"
 
-export const getAllOrders= async (req, res) => {
+export const getAllOrders= async (req, res) =>
+ {
     let allOrders;
     try {
       if(req.user.role=="ADMIN")
