@@ -26,7 +26,7 @@ import { ShoeModel, shoeValidatorForAdd, shoeValidatorForUpdate } from "../model
 export const getAllShoes = async (req, res) => {
     let txt = req.query.txt || undefined;
     let page = req.query.page || 1;
-    let perPage = req.query.perPage || 30;
+    let perPage = req.query.perPage || 3;
 
     try {
         let query = {};
@@ -43,9 +43,7 @@ export const getAllShoes = async (req, res) => {
             .skip((page - 1) * perPage)
             .limit(perPage);
 
-        if (allShoes.length === 0) {
-            return res.json({ message: "No shoes found." });
-        }
+    
 
         return res.json(allShoes);
     } catch (err) {
@@ -95,7 +93,7 @@ export const deleteShoe = async (req, res) => {
 }
 
 export const addShoe = async (req, res) => {
-    let { description,category,color,providerNum,brand,price,src,model} = req.body;
+    let { description} = req.body;
     const errors =  shoeValidatorForAdd(req.body).error
     if(errors)
     return res.status(404).json(errors.details[0].message)
@@ -103,7 +101,7 @@ export const addShoe = async (req, res) => {
         let sameShoe = await ShoeModel.findOne({description});
         if (sameShoe)
             return res.status(409).json({ type: "same details", message: "The shoe already exists" })
-        let newShoe = new ShoeModel({description,category,color,providerNum,brand,price,src,model})
+        let newShoe = new ShoeModel(req.body)
         await newShoe.save();
         return res.json(newShoe)
     }
@@ -140,4 +138,16 @@ export const updateShoe = async (req, res) => {
         res.status(400).json({ type: "invalid operation", message: "sorry cannot update shoe" })
     }
 
+}
+export const getAmountOfShoes=async(req,res)=>{
+    try{
+    let arr=await ShoeModel.find({});
+    let amount=arr.length;
+    return res.json({amount:amount}); 
+    }
+    catch(err){
+
+       return res.status(400).json({ type: "invalid operation", message: "sorry cannot get amount of all shoes" })
+    }
+   
 }

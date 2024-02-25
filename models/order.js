@@ -10,7 +10,7 @@ const minimalShoeSchema = mongoose.Schema({
     amount:Number 
 })
 const orderSchema = mongoose.Schema({
-    orderDate:Date,
+    orderDate:{type:Date,default:Date.now},
     dueDate:Date,
     address:String,
     userId: String,
@@ -23,10 +23,10 @@ export const OrderModel = mongoose.model("orders", orderSchema);
 
 export const orderValidatorForAdd = (order) => {
     const orderValidationSchema = Joi.object().keys({
-        orderDate: Joi.date().required(),
+        orderDate: Joi.date(),
         dueDate: Joi.date().required(),
         address:Joi.string().required(),
-        products:Joi.array()
+        products:Joi.array().required()
     })
     return orderValidationSchema.validate(order);
 }

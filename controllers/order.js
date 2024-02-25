@@ -52,7 +52,7 @@ order =await OrderModel.findByIdAndDelete(id)
  
 export const addOrder = async (req, res) => {
     let { 
-        orderDate,
+        
         dueDate,
         address,
         products} = req.body;
@@ -63,7 +63,7 @@ export const addOrder = async (req, res) => {
         
         
         let newOrder = new OrderModel({ 
-            orderDate,
+         
             dueDate,
             address,
             userId:req.user._id,
