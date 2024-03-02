@@ -25,8 +25,9 @@ import { ShoeModel, shoeValidatorForAdd, shoeValidatorForUpdate } from "../model
 
 export const getAllShoes = async (req, res) => {
     let txt = req.query.txt || undefined;
+    let Category = req.query.Category || undefined;
     let page = req.query.page || 1;
-    let perPage = req.query.perPage || 3;
+    let perPage = req.query.perPage || 30;
 
     try {
         let query = {};
@@ -38,6 +39,18 @@ export const getAllShoes = async (req, res) => {
                 { model: { $regex: new RegExp(txt, 'i') } }
             ];
         }
+       
+                
+                if (Category) {
+                    query.$or = [
+                        { category: { $regex: new RegExp(`^${Category}$`, 'i') } },
+                    ];
+                }
+                
+               
+         
+     
+
 
         let allShoes = await ShoeModel.find(query)
             .skip((page - 1) * perPage)
@@ -140,8 +153,26 @@ export const updateShoe = async (req, res) => {
 
 }
 export const getAmountOfShoes=async(req,res)=>{
+    let txt=req.query.txt;
+    let Category=req.query.Category;
+    let query = {};
+
+       if (txt) {
+        query.$or = [
+            { brand: { $regex: new RegExp(txt, 'i') } },
+            { category: { $regex: new RegExp(txt, 'i') } },
+            { model: { $regex: new RegExp(txt, 'i') } }
+        ];
+      }
+   
+            
+            if (Category) {
+                query.$or = [
+                    { category: { $regex: new RegExp(`^${Category}$`, 'i') } },
+                ];
+            }
     try{
-    let arr=await ShoeModel.find({});
+    let arr=await ShoeModel.find(query);
     let amount=arr.length;
     return res.json({amount:amount}); 
     }
