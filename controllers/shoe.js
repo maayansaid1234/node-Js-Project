@@ -36,7 +36,8 @@ export const getAllShoes = async (req, res) => {
             query.$or = [
                 { brand: { $regex: new RegExp(txt, 'i') } },
                 { category: { $regex: new RegExp(txt, 'i') } },
-                { model: { $regex: new RegExp(txt, 'i') } }
+                { model: { $regex: new RegExp(txt, 'i') } },
+                { color: { $regex: new RegExp(txt, 'i') } }
             ];
         }
        
