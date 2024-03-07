@@ -7,7 +7,8 @@ const minimalShoeSchema = mongoose.Schema({
     _id:String,
     description:String,
     price: Number,
-    amount:Number 
+    amount:Number ,
+    // selectedSize:Number
 })
 const orderSchema = mongoose.Schema({
     orderDate:{type:Date,default:Date.now},

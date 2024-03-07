@@ -1,3 +1,4 @@
+
 import Joi from "joi";
 import mongoose from "mongoose";
 
@@ -12,7 +13,7 @@ export const shoeSchema = mongoose.Schema({
     providerNum:{type:String,required:true},
     src:String,
     description:{type:String,required:true,unique:true}
-
+// ,sizes:Array
   
 })
 
@@ -27,7 +28,9 @@ export const shoeValidatorForAdd = (shoe) => {
         category:Joi.string().required(),
         model:Joi.string(),
         src:Joi.string(),
-        description:Joi.string().required()
+        description:Joi.string().required(),
+        // sizes:Joi.array(Joi.number).required()
+
     })
     return shoeValidationSchema.validate(shoe);
 }
@@ -41,7 +44,8 @@ export const shoeValidatorForUpdate = (shoe) => {
         category:Joi.string(),
         model:Joi.string(),
         src:Joi.string(),
-        description:Joi.string()
+        description:Joi.string(),
+        // sizes:Joi.array(Joi.number)
     })
     return shoeValidationSchema.validate(shoe);
 }
