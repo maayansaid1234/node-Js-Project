@@ -53,7 +53,7 @@ order =await OrderModel.findByIdAndDelete(id)
 export const addOrder = async (req, res) => {
     let { 
         
-        dueDate,
+        
         address,
         products} = req.body;
     const errors =  orderValidatorForAdd(req.body).error
@@ -64,7 +64,7 @@ export const addOrder = async (req, res) => {
         
         let newOrder = new OrderModel({ 
          
-            dueDate,
+           
             address,
             userId:req.user._id,
             products });
