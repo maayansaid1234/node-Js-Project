@@ -1,9 +1,9 @@
+import "dotenv/config";
 import express from "express";
 import shoeRouter from "./routes/shoe.js"
 import userRouter from "./routes/user.js"
 import orderRouter from "./routes/order.js"
 import { connectToDB } from "./db/connectToDb.js"
-import { config } from "dotenv";
 import cors from "cors";
 import { errorHandling } from "./middlwares/errorHandling.js";
 
@@ -11,7 +11,6 @@ import { errorHandling } from "./middlwares/errorHandling.js";
 const app = express();
 
 connectToDB();
-config();
 
 app.use(cors())
 app.use(express.json());
